@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spam Detector</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0; /* Background color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            max-width: 80%;
+            background-color: #ffffff; /* Form background color */
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #007AFF; /* iOS theme blue color */
+        }
+        label, input, input[type="submit"] {
+            display: block;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        input[type="submit"] {
+            background-color: #007AFF;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .message {
+            text-align: center;
+            margin-top: 20px;
+            color: #007AFF; /* iOS theme blue color */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Spam Detector</h1>
+        <form onsubmit="return checkForSpam()">
+            <label for="message">Type your message:</label>
+            <input type="text" id="message" required>
+            <input type="submit" value="Check for Spam">
+        </form>
+        <div class="message" id="result"></div>
+    </div>
+    
+    <script>
+        function checkForSpam() {
+            const userMessage = document.getElementById('message').value.toLowerCase();
+            const spamKeywords = [
+                "buy", "discount", "sale", "win", "free", "money", "click here", "unsubscribe", "guarantee", "limited time offer",
+                "act now", "amazing", "bargain", "cash", "winner", "congratulations", "credit", "debt", "earn", "extra",
+                "income", "instant", "loans", "mortgage", "opportunity", "prize", "promise", "remove", "request", "risk-free",
+                "save", "special promotion", "this won't believe", "winner", "winning", "investment", "miracle", "urgent",
+                "double your", "money back", "100% satisfied", "click below", "cancel", "call now", "free consultation",
+                "get it now", "hidden", "no obligation", "order now", "please read", "reverses", "social security"
+            ];
+            
+            for (const keyword of spamKeywords) {
+                if (userMessage.includes(keyword)) {
+                    document.getElementById('result').textContent = "This message is likely spam.";
+                    return false; // Prevent form submission
+                }
+            }
+            
+            document.getElementById('result').textContent = "This message appears to be a normal human message.";
+            return false; // Prevent form submission
+        }
+    </script>
+</body>
+</html>
